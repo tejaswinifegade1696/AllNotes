@@ -1,0 +1,125 @@
+
+=======================================
+Java Questiones List for Interview Prep
+=======================================
+
+1) What is JVM
+
+2) ArrayList VS LinkedList
+
+3) Hashmap vs Concreate hashmap
+
+4) Time complexity of insertion sort and bubble sort
+
+5) Data Storage structure for all collection class and interface
+
+6) Explain @Component and @Controller
+
+7) Explain @Component @service @repository
+
+8) Application.properties file
+
+9) Spring security
+
+10) Authentication and authorization in spring boot
+
+11) Roles and Responsibilities
+
+12) Runtime polymerphism and compile time polymerphism or method overloading and method overriding
+
+13) Diff between immutable and final 
+
+14) Spring MVC controller class scope
+
+15) Bean scope and its functions
+
+16) what is rest api? Rest API annotations 
+
+17) @RestController VS @Controller
+
+18) Explain previous project
+
+19) Exception handling at service layer
+
+20) scope of controller class
+
+21) Explain single class
+
+22) Java 8 feature
+	
+	- Optional class
+	- method ref
+	- functional interface
+	- stream api (sorting list)
+	
+23) Design pattern - singleton
+
+24) spring boot annotation
+
+25) connectivity to database
+
+26) Rest status code
+
+27) profile
+
+28) @Transactional
+
+29) Hibernate - cascade type
+
+30) Primary key annotations, foreign key annotations
+
+31) hashmap
+
+32) lambda expression [ nlist.forearch((n) -> sop(n)) ]
+
+33) how to send text file restAPI
+
+34) singleton class, singleton object, what we do to make object singleton
+
+35) immutable object
+
+36) spring security
+
+37) Exception handling at repository
+
+38) Server port enablement
+
+39) how to fetch data from perperty file
+
+40) why string is immutable [string objects are cached in string pool thats makes it immutable]
+
+41) what is autowiring
+
+42) IndexOf method [first occarance of word or letter]
+
+43) garbage collector
+
+44) put vs patch 
+
+45) spring boot crud application
+
+46) sql queries
+
+47) what is marker interface
+
+48) can you override private or static method
+
+49) how to handle multiple db connection
+
+50) one to one and many to one mapping implementation bet 2 tables. Join query
+
+51) How to know which database calls when
+
+53) how to communicate to external service
+
+54) git commands
+
+55) how to clone project
+
+56)  how to mock data from db
+
+57) Difference between Runnable and Callable interface
+
+58) Static block
+
+
