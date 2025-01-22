@@ -1,0 +1,235 @@
+
+=======================================
+Microservices Questiones List for Interview Prep
+=======================================
+
+
+1) What is microservice?
+
+	- Architecure has loosly coupled services. can be developed, deployed, maintain independently
+
+	- each service performs a different and unique function
+
+	- Through APIs it communicates with other services
+	
+	- We should not use microservices for simple applications which can be managed by monolithic architecture.
+
+2) Explain the workings of Java Microservices Architecture
+
+	- API gateway
+
+	- Load Balancer
+
+	- Microservices
+	
+	- Service registry, Service Discovery
+	
+
+3) What are the Pros and Cons of Java Microservices?
+	
+	Pros: 
+	
+	- Different microservices uses different technologies
+
+	- Multiple services can be parallelly developed and deployed.
+
+	- Services are independently managed.
+	
+	Cons: 
+	
+	- So many "configurations" have to do which increases efforts.
+
+	- Network "maintenance" is difficult.
+
+	- "Communication" between microservices can be complex.
+	
+4) What are the main features of Java Microservices?
+	
+	- Deployment :  it is possible to deploy and develop each of these services independently.
+	
+	- Decentralization : Each of the services has its own data
+	
+	- Loosely Coupled : If a single process fails, it will not affect the other services and the entire system
+	
+	- Security : It provides authentication and authorization based on the Role-based access model (RBAC).
+	
+	- Scalable : Based on the requirements, services can be scaled
+	
+5) What is Monolithic architecture?
+
+	- Before microservices, all modules were there in a single project.
+	
+	- It supports tightly coupled architecture.
+	
+	- we have a server and all modules of application must be deploy to a server. this will result into WAR file
+	  Only if we deploy the war file, these modules will be available.
+	  
+6)  Explain the design patterns of Java Spring Boot Microservices?
+
+	- Service Registry and Discovery : Services register themself in certral registryautomatically. Allow other to establish communication
+	
+	- API Gateway : It is a customer entry point. forwards requests to appropriate microservices
+	
+	- Circuit Breaker : It checks service is available or not. if service is unavailable it provides appropriate response and protect application from failuare.
+	
+	- Asynchronous messaging : services communicate with each other through message queues like Kafka or RabbitMQ.
+	
+7)  Name three commonly used tools for Java Spring Boot Microservices.
+
+	- Docker : put applications and their dependencies in a lightweight container
+	
+	- Kubernetes :  it automates the scaling, deployment, and management of containerized applications. offers features like service discovery, load balancing 
+	
+	- Spring Cloud : It is used to develop cloud-native applications. offers features like service discovery, configuration management, circuit breakers
+	
+8)  How do Microservices Communicate with each other?
+
+	- HTTP/REST : uses http lightweight protocol
+	
+	- Message queues : Message queues such as Kafka or RabbitMQ used to make connection.
+	
+9)  How to Process the Request and Response between Two Services?
+
+	- XML and JSON. If we compare both formats, JSON is very simple to use in Microservices.
+	
+10) What is FeignClient and How Java Microservices Communicate using FeignClient? ignore WebClient, RestTemplate ?
+
+	- FeignClient is known as Spring Cloud OpenFeign.
+	
+	- It is mostly used to consume REST API endpoints exposed by third parties or microservices.
+	
+	- We can use FeignClient for Java Microservices Communication by the following approach:
+		
+		step 1) 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		
+		step 2)
+		@SpringBootApplication
+		@EnableFeignClients
+		public class Application {
+
+			public static void main(String[] args) {
+			SpringApplication.run(Application.class, args);
+			}
+		}
+		
+		step3)
+		@FeignClient(name = "giveHereServiceName", url = "provideUrlHere", path = "provideContextPathHere")
+		public interface AddressClient {
+
+			@GetMapping("/address/{id}")
+			public ResponseEntity<AddressResponse> getAddressByEmployeeId(@PathVariable("id") int id);
+
+		}
+		 
+		 step4) 
+			@Service
+			public class EmployeeService {
+
+
+				// More Code Here
+
+
+				// -------------
+
+				// Spring will create the implementation
+				// for this class
+				// and here it will insert the bean (proxy) .
+				@Autowired
+				private AddressClient addressClient;
+
+				public EmployeeResponse getEmployeeById(int id) {
+				
+					// More Code Here
+
+					// Using FeignClient
+					ResponseEntity<AddressResponse> addressResponse = addressClient.getAddressByEmployeeId(id);
+					employeeResponse.setAddressResponse(addressResponse.getBody());
+
+					return employeeResponse;
+				}
+
+			}
+			
+11) How Load Balancing Happens in Java Spring Boot Microservices using Netflix’s Ribbon?
+
+	- we do not have to create this load balancer or write any code, simple we hv to add one dependency and 
+	
+	- Annotate your Feign Client interface with @RibbonClient
+	
+		@FeignClient(name = "address-service", path = "/address-service")
+		@RibbonClient(name = "address-service")
+		public interface AddressClient {
+
+			@GetMapping("/address/{id}")
+			public ResponseEntity<AddressResponse> getAddressByEmployeeId(@PathVariable("id") int id);
+
+		}
+		
+12) How to Develop API Gateway in Java Spring Boot Microservices?
+
+	- We have to use Spring Cloud Gateway.
+	
+	- If you have hundreds of microservices then you don’t need to remember the port of all microservices.
+	You can just configure them in your API Gateway and you can access all your API by using only one port.
+	
+	- Step 1) add maven dependency :spring-cloud-starter-gateway
+	
+	- step 2) Make Changes in Your application.yaml file
+	
+		server:
+		  port: 8085
+		spring:
+		  application:
+			name: API-GATEWAY-SERVICE
+		  cloud:
+			gateway:
+			  routes:
+				- id: DEMO-SERVICE
+				  uri: http://localhost:9090
+				  predicates:
+					- Path=/demo/**
+					
+	id: You can give any id as of now.
+	uri: Here you have to provide the port in which your microservice is running
+	predicates (- Path): Here we have provided the path “/demo/**”, which means any request starting with path “/demo/**” rout it to DEMO-SERVICE.
+	
+13 ) Why Use Spring Cloud for Microservices Development?
+
+	- Spring Cloud Config Server
+	- Service registration and discovery using Eureka
+	- Spring Cloud LoadBalancer
+	- resilience4j-ratelimiter
+	- Circuit Breakers Pattern
+	
+14 ) Explain 5 Major Challenges and Solutions of Java Spring Boot Microservices Architecture.
+	
+	- Challenge 1: Service Configuration Management
+		Solution: Spring Cloud Config Server centralizes configuration management for microservices.
+		
+	- Challenge 2: Service Discovery and Registration
+		Solution: Eureka enables dynamic service discovery and registration.
+
+	- Challenge 3: Load Balancing Across Microservices
+		Solution: Spring Cloud LoadBalancer distributes traffic evenly among microservice instances.
+		
+	- Challenge 4: Resilience and Fault Tolerance
+		Solution: resilience4j-ratelimiter implements rate limiting to maintain stability under heavy load.
+
+	- Challenge 5: Handling Failures and Circuit Breakers
+		Solution: Circuit Breaker pattern with tools like Hystrix provides fault isolation and fallback mechanisms.
+		
+15 ) How to deploy microservices in Docker?
+
+	- create a docker file for each microservice which contains application's dependencies and runtime configuration.
+	
+	- Build Docker images for each microservice using the docker build command.
+	
+	- push images to docker registry
+	
+	- Deploy the Dockerized microservices using Docker Compose by running ' docker-compose up '
+	
+	- Monitor and manage the deployed microservices using Docker CLI commands
